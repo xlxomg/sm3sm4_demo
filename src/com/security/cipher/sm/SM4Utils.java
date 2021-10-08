@@ -25,6 +25,11 @@ public class SM4Utils
 		this.secretKey = Key;
 	}
 
+	public void setIv(String iv)
+	{
+		this.iv = iv;
+	}
+
 	public void setHexString(boolean hexString)
 	{
 		this.hexString = hexString;
@@ -44,6 +49,7 @@ public class SM4Utils
 		System.out.println("");
 
 		plainText = sm4.decryptData_ECB(cipherText);
+
 		System.out.println("明文: " + plainText);
 		System.out.println("");
 
@@ -151,6 +157,7 @@ public class SM4Utils
 			
 			SM4 sm4 = new SM4();
 			sm4.sm4_setkey_enc(ctx, keyBytes);
+			//byte[] encrypted = sm4.sm4_crypt_cbc(ctx, ivBytes, plainText.getBytes("GBK"));
 			byte[] encrypted = sm4.sm4_crypt_cbc(ctx, ivBytes, plainText.getBytes("GBK"));
 			String cipherText = new BASE64Encoder().encode(encrypted);
 			if (cipherText != null && cipherText.trim().length() > 0)
@@ -192,8 +199,9 @@ public class SM4Utils
 			SM4 sm4 = new SM4();
 			sm4.sm4_setkey_dec(ctx, keyBytes);
 			byte[] decrypted = sm4.sm4_crypt_cbc(ctx, ivBytes, new BASE64Decoder().decodeBuffer(cipherText));
+			//return new String(decrypted, "GBK");
 			return new String(decrypted, "GBK");
-		} 
+		}
 		catch (Exception e)
 		{
 			e.printStackTrace();

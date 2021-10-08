@@ -2,6 +2,7 @@ package com.security.cipher.test;
 
 import com.security.cipher.sm.SM3Digest;
 import com.security.cipher.sm.SM4Utils;
+import com.security.cipher.util.EncryptUtil;
 import org.bouncycastle.util.encoders.Hex;
 
 import java.io.IOException;
@@ -15,8 +16,9 @@ import java.security.MessageDigest;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-        sm3Test("asdfasdfsdf");
-        sm4Test("abcd000000","a1097fadcabe4c40a1cbdc9106dccb24");
+        sm3Test("appid=jigb2abc&mobile=13362163822&shopName=xxxx&shopNo=xxxx&b8ex47wmgjlq4tjngxie0hk2i7uyp0er");
+        sm4Test("{\"data\":{\"memberId\":123121312312,\"memberName\":\"测试\"},\"description\":\"success\",\"errorcode\":\"200\",\"success\":\"true\"}","a1097fadcabe4c40a1cbdc9106dccb24");
+        //sm4Test("车水电费","a1097fadcabe4c40a1cbdc9106dccb24");
     }
 
     private static void sm3Test(String plainText) {
@@ -29,19 +31,21 @@ public class Test {
         sm3.update(msg1, 0, msg1.length);
         sm3.doFinal(md, 0);
         String s = new String(Hex.encode(md));
-        System.out.println(s);
+        System.out.println("第一次生成摘要:"+s);
 
 
         SM3Digest sm33 = new SM3Digest();
         sm33.update(msg1, 0, msg1.length);
         sm33.doFinal(md, 0);
         String s2 = new String(Hex.encode(md));
-        System.out.println(s2);
+        System.out.println("第二次生成摘要:"+s2);
         System.out.println("耗时: " + (System.currentTimeMillis()-startTime) +"毫秒");
     }
 
     private static void sm4Test(String plainText,String appSecret) {
         System.out.println("==========SM4 TEST===========");
+        //需要先转16进制字符串
+        plainText = EncryptUtil.encodeHexString(plainText.getBytes());
         long startTime = System.currentTimeMillis();
 
         SM4Utils sm4 = new SM4Utils();
@@ -55,10 +59,11 @@ public class Test {
         System.out.println("密文: " + cipherText);
 
         plainText = sm4.decryptData_ECB(cipherText);
-        System.out.println("明文: " + plainText);
+        System.out.println("16进制明文: " + plainText);
+        System.out.println("明文: " + new String(EncryptUtil.hexStringToBytes(plainText)));
 
         //System.out.println("CBC模式");
-        //sm4.iv = "UISwD9fW6cFh9SNS";
+        //sm4.setIv("UISwD9fW6cFh9SNS");
         //cipherText = sm4.encryptData_CBC(plainText);
         //System.out.println("密文: " + cipherText);
         //
