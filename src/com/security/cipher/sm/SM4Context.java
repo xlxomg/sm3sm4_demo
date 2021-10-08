@@ -1,6 +1,6 @@
 package com.security.cipher.sm;
 
-public class SM4_Context
+public class SM4Context
 {
 	public int mode;
 	
@@ -8,7 +8,7 @@ public class SM4_Context
 	
 	public boolean isPadding;
 
-	public SM4_Context() 
+	public SM4Context()
 	{
 		this.mode = 1;
 		this.isPadding = false;

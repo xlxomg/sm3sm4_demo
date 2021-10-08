@@ -60,7 +60,7 @@ public class SM4Utils
 	{
 		try 
 		{
-			SM4_Context ctx = new SM4_Context();
+			SM4Context ctx = new SM4Context();
 			ctx.isPadding = true;
 			ctx.mode = SM4.SM4_ENCRYPT;
 			
@@ -102,7 +102,7 @@ public class SM4Utils
 	{
 		try 
 		{
-			SM4_Context ctx = new SM4_Context();
+			SM4Context ctx = new SM4Context();
 			ctx.isPadding = true;
 			ctx.mode = SM4.SM4_DECRYPT;
 			
@@ -132,7 +132,7 @@ public class SM4Utils
 	{
 		try 
 		{
-			SM4_Context ctx = new SM4_Context();
+			SM4Context ctx = new SM4Context();
 			ctx.isPadding = false;
 			ctx.mode = SM4.SM4_ENCRYPT;
 			
@@ -172,7 +172,7 @@ public class SM4Utils
 	{
 		try 
 		{
-			SM4_Context ctx = new SM4_Context();
+			SM4Context ctx = new SM4Context();
 			ctx.isPadding = false;
 			ctx.mode = SM4.SM4_DECRYPT;
 			

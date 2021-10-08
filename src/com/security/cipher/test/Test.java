@@ -32,7 +32,6 @@ public class Test {
         System.out.println(s);
 
 
-        //md = new byte[32];
         SM3Digest sm33 = new SM3Digest();
         sm33.update(msg1, 0, msg1.length);
         sm33.doFinal(md, 0);
@@ -47,9 +46,7 @@ public class Test {
 
         SM4Utils sm4 = new SM4Utils();
         //sm4.setSecretKey("JeF8U9wHFOMfs2Y8");
-        //String testAppSecret = "a1097fadcabe4c40a1cbdc9106dccb24";
-        String secretKey = MD5_cut16(appSecret);
-        sm4.setSecretKey(secretKey);
+        sm4.setSecretKey(MD5_cut16(appSecret));
         sm4.setHexString(false);
 
         System.out.println("ECB模式");
@@ -82,11 +79,11 @@ public class Test {
             byte[] array = md.digest(data.getBytes("UTF-8"));
             sb = new StringBuilder();
             for (byte item : array) {
-                sb.append(Integer.toHexString((item & 0xFF) | 0x100).substring(1, 3));
+                sb.append(Integer.toHexString((item & 0xFF) | 0x100), 1, 3);
             }
         } catch (Exception e) {
             System.out.println("生成md5失败");
         }
-        return sb.substring(8, 24).toString().toUpperCase();
+        return sb.substring(8, 24).toUpperCase();
     }
 }
