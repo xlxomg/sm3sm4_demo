@@ -20,11 +20,15 @@ public class SM4Utils
 	{
 	}
 
-	public void SetSecretKey(String Key)
+	public void setSecretKey(String Key)
 	{
 		this.secretKey = Key;
 	}
 
+	public void setHexString(boolean hexString)
+	{
+		this.hexString = hexString;
+	}
 
 	public static void main(String[] args) throws IOException
 	{
@@ -202,7 +206,7 @@ public class SM4Utils
 		String plainText = "11223344556677888877665544332211";
 		String sm4_Key = "00000000000000008888888888888888";
 		SM4Utils sm4Utils = new SM4Utils();
-		sm4Utils.SetSecretKey(sm4_Key);
+		sm4Utils.setSecretKey(sm4_Key);
 		String encryptdata = sm4Utils.encryptData_ECB(plainText);
 		//txt.setText(encryptdata);
 		System.out.println("密文: " + encryptdata);
