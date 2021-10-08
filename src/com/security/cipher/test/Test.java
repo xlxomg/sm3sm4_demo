@@ -45,8 +45,9 @@ public class Test {
         long startTime = System.currentTimeMillis();
 
         SM4Utils sm4 = new SM4Utils();
-        //sm4.setSecretKey("JeF8U9wHFOMfs2Y8");
+        //这里将appSecret md5后取其中的16位作为key
         sm4.setSecretKey(MD5_cut16(appSecret));
+        //sm4.setSecretKey("JeF8U9wHFOMfs2Y8");
         sm4.setHexString(false);
 
         System.out.println("ECB模式");
