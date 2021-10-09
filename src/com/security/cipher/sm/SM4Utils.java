@@ -139,7 +139,7 @@ public class SM4Utils
 		try 
 		{
 			SM4Context ctx = new SM4Context();
-			ctx.isPadding = false;
+			ctx.isPadding = true;
 			ctx.mode = SM4.SM4_ENCRYPT;
 			
 			byte[] keyBytes;
@@ -180,7 +180,7 @@ public class SM4Utils
 		try 
 		{
 			SM4Context ctx = new SM4Context();
-			ctx.isPadding = false;
+			ctx.isPadding = true;
 			ctx.mode = SM4.SM4_DECRYPT;
 			
 			byte[] keyBytes;

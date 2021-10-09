@@ -17,7 +17,8 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         sm3Test("appid=jigb2abc&mobile=13362163822&shopName=xxxx&shopNo=xxxx&b8ex47wmgjlq4tjngxie0hk2i7uyp0er");
-        sm4Test("{\"data\":{\"memberId\":123121312312,\"memberName\":\"测试\"},\"description\":\"success\",\"errorcode\":\"200\",\"success\":\"true\"}","a1097fadcabe4c40a1cbdc9106dccb24");
+        sm4Test("{\"data\":{\"memberId\":123121312312,\"memberName\":\"测试\"},\"description\":\"success\",\"errorcode\":\"200\",\"success\":\"true\"}"
+                ,"a1097fadcabe4c40a1cbdc9106dccb24");
         //sm4Test("车水电费","a1097fadcabe4c40a1cbdc9106dccb24");
     }
 
@@ -45,7 +46,7 @@ public class Test {
     private static void sm4Test(String plainText,String appSecret) {
         System.out.println("==========SM4 TEST===========");
         //需要先转16进制字符串
-        plainText = EncryptUtil.encodeHexString(plainText.getBytes());
+        String hexPlainText = EncryptUtil.encodeHexString(plainText.getBytes());
         long startTime = System.currentTimeMillis();
 
         SM4Utils sm4 = new SM4Utils();
@@ -55,19 +56,21 @@ public class Test {
         sm4.setHexString(false);
 
         System.out.println("ECB模式");
-        String cipherText = sm4.encryptData_ECB(plainText);
+        String cipherText = sm4.encryptData_ECB(hexPlainText);
         System.out.println("密文: " + cipherText);
 
-        plainText = sm4.decryptData_ECB(cipherText);
-        System.out.println("16进制明文: " + plainText);
-        System.out.println("明文: " + new String(EncryptUtil.hexStringToBytes(plainText)));
+        hexPlainText = sm4.decryptData_ECB(cipherText);
+        System.out.println("16进制明文: " + hexPlainText);
+        plainText = new String(EncryptUtil.hexStringToBytes(hexPlainText));
+        System.out.println("明文: " + plainText);
 
         //System.out.println("CBC模式");
         //sm4.setIv("UISwD9fW6cFh9SNS");
-        //cipherText = sm4.encryptData_CBC(plainText);
+        //cipherText = sm4.encryptData_CBC(hexPlainText);
         //System.out.println("密文: " + cipherText);
         //
-        //plainText = sm4.decryptData_CBC(cipherText);
+        //hexPlainText = sm4.decryptData_CBC(cipherText);
+        //plainText = new String(EncryptUtil.hexStringToBytes(hexPlainText));
         //System.out.println("明文: " + plainText);
         System.out.println("耗时: " + (System.currentTimeMillis()-startTime) +"毫秒");
     }
